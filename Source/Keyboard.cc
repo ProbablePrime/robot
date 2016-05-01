@@ -384,9 +384,13 @@ void Keyboard::Press (Key keycode) const
 	input.type = INPUT_KEYBOARD;
 
 	// Attach the keycode
-	input.ki.wVk = keycode;
-	input.ki.dwFlags = 0;
+	input.ki.wVk = 0;
+	input.ki.wScan = MapVirtualKey(keycode, MAPVK_VK_TO_VSC);
 
+	// set extra flags
+	input.ki.time = 0;
+	input.ki.dwFlags = KEYEVENTF_SCANCODE;;
+	
 	// Send the prepared key input event
 	SendInput (1, &input, sizeof (INPUT));
 
@@ -430,12 +434,16 @@ void Keyboard::Release (Key keycode) const
 #ifdef ROBOT_OS_WIN
 
 	INPUT input = { 0 };
-	// Prepare a keyboard event
+	// Prepare a keyboard event	
 	input.type = INPUT_KEYBOARD;
 
 	// Attach the keycode
-	input.ki.wVk = keycode;
-	input.ki.dwFlags = KEYEVENTF_KEYUP;
+	input.ki.wVk = 0;
+	input.ki.wScan = MapVirtualKey(keycode, MAPVK_VK_TO_VSC);
+
+	// set extra flags
+	input.ki.time = 0;
+	input.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
 
 	// Send the prepared key input event
 	SendInput (1, &input, sizeof (INPUT));
