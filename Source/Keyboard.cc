@@ -384,7 +384,7 @@ void Keyboard::Press (Key keycode) const
 	input.type = INPUT_KEYBOARD;
 
 	// Attach the keycode
-	input.ki.wVk = 0;
+	input.ki.wVk = keycode;
 	input.ki.wScan = MapVirtualKey(keycode, MAPVK_VK_TO_VSC);
 
 	// set extra flags
@@ -438,7 +438,7 @@ void Keyboard::Release (Key keycode) const
 	input.type = INPUT_KEYBOARD;
 
 	// Attach the keycode
-	input.ki.wVk = 0;
+	input.ki.wVk = keycode;
 	input.ki.wScan = MapVirtualKey(keycode, MAPVK_VK_TO_VSC);
 
 	// set extra flags
